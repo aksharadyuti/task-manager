@@ -1,9 +1,19 @@
 const express = require('express')
+const hbs = require('hbs')
+const path = require('path')
 require('./db/mongoose')
 const userRouter = require('./routers/user')
 const taskRouter = require('./routers/task')
 
+const publicDirectoryPath = path.join(__dirname,'../public')
+const viewsPath = path.join(__dirname,'../templates/views')
+const partialsPath = path.join(__dirname,'../templates/partials')
+
 const app = express()
+app.set('view engine', 'hbs')
+app.set('views',viewsPath)
+hbs.registerPartials(partialsPath)
+app.use('/public', express.static('./public'))
 const port = process.env.PORT || 3000
 
 // app.use((req, res, next) => {
@@ -30,6 +40,7 @@ app.listen(port, () => {
 
 const Task = require ('./models/task')
 const User = require('./models/user')
+const { partial } = require('lodash')
 
 const main = async () =>{
     // const task = await Task.findById('5f21bdd3c60fcc2b74a47ef7')

@@ -1,0 +1,41 @@
+body{
+    background-color: rgb(24, 3, 37);
+    color:white;
+    font-family: 'Lucida Sans';
+}
+
+h1{
+    text-align: center;
+    color: rgb(164, 12, 224);
+}
+
+h2{
+    color: rgb(109, 0, 235);
+    text-align: center;
+}
+
+form{
+    text-align: center;
+}
+
+input{
+    box-sizing: border-box;
+    padding: 14px;
+}
+
+label{
+    text-align: left;
+}
+
+button{
+    margin-top: 15px;
+    padding: 14px;
+    background-color:  rgb(109, 0, 235);
+    color: white;
+    border: thin ;
+}
+
+#register-form{
+    padding-top: 20px;
+    
+}

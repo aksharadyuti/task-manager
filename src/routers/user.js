@@ -1,16 +1,25 @@
 const express = require('express')
 const User = require('../models/user')
 const auth = require('../middleware/auth')
+
 const router = new express.Router()
+router.use(express.urlencoded({extended:true}))
+
+router.get('/',async(req,res)=>{
+    res.status(200).render('register')
+})
 
 router.post('/users', async (req, res) => {
-    const user = new User(req.body)
 
     try {
+        const user = new User(req.body)
+
         await user.save()
+        console.log(req.body.name)
         const token = await user.generateAuthToken()
-        res.status(201).send({ user, token })
+        res.status(201).render('dashboard',{ name:user.name })
     } catch (e) {
+        console.log(e)
         res.status(400).send(e)
     }
 })

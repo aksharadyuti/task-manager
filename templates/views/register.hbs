@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="../../public/styles.css">
+    </head>
+    <body>
+        {{>header}}
+        <div id="register-form">
+            <h2>Register</h2>
+            <form method="POST" action="/users">
+            <label>Name</label><br>
+            <input type="text" placeholder="name" name="name" required><br>
+            <label>Email</label><br>
+            <input type="email" placeholder="email" name="email" required><br>
+            <label>Age</label><br>
+            <input type="number" placeholder="age" name="age"><br>
+            <label>Password</label><br>
+            <input type="password" placeholder="password" name="password" required><br>
+            <button>Submit</button>
+            </form>
+        </div>
+    </body>
+</html>
