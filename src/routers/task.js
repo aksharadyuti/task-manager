@@ -103,7 +103,7 @@ router.delete('/tasks/:id', auth, async (req, res) => {
             res.status(404).send()
         }
 
-        res.send(task)
+        res.status(200).redirect('/users/me')
     } catch (e) {
         res.status(500).send()
     }

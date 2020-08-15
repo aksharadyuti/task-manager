@@ -2,6 +2,7 @@
 <html>
     <head>
         <link rel="stylesheet" href="../../public/styles.css">
+                <script src="../../public/tasks.js"></script>
 
     </head>
     <body>
@@ -16,7 +17,7 @@
         {{#tasks}}
         <br>
         <span>{{description}}</span>
-        <input type="checkbox">
+        <input type="checkbox" onclick="completeTask('{{id}}')">
 
         {{/tasks}}
 </div>       

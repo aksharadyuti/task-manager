@@ -1,6 +1,5 @@
 const express = require('express')
 const User = require('../models/user')
-const Tasks = require('../models/task')
 const auth = require('../middleware/auth')
 const { cookie } = require('express-validator')
 var Cookies = require('cookies')
