@@ -1,6 +1,10 @@
 const express = require('express')
 const User = require('../models/user')
+const Tasks = require('../models/task')
 const auth = require('../middleware/auth')
+const { cookie } = require('express-validator')
+var Cookies = require('cookies')
+const Task = require('../models/task')
 
 const router = new express.Router()
 router.use(express.urlencoded({extended:true}))
@@ -9,15 +13,20 @@ router.get('/',async(req,res)=>{
     res.status(200).render('register')
 })
 
+router.get('/users/login', async(req,res)=>{
+    res.status(200).render('login')
+})
+
 router.post('/users', async (req, res) => {
 
     try {
         const user = new User(req.body)
 
         await user.save()
-        console.log(req.body.name)
         const token = await user.generateAuthToken()
-        res.status(201).render('dashboard',{ name:user.name })
+        var cookies = new cookies(req,res)
+        cookies.set('token',token)
+        res.status(201).redirect("/users/me")
     } catch (e) {
         console.log(e)
         res.status(400).send(e)
@@ -28,7 +37,10 @@ router.post('/users/login', async (req, res) => {
     try {
         const user = await User.findByCredentials(req.body.email, req.body.password)
         const token = await user.generateAuthToken()
-        res.send({user, token })
+        var cookies = new Cookies(req,res)
+        cookies.set('token', token)
+        const tasks = await Tasks.find({owner:user._id})
+        res.status(200).redirect('/users/me')
     } catch (e) {
         console.log(e);
         res.status(400).send(e)
@@ -59,14 +71,15 @@ router.post('/users/logoutAll', auth, async (req, res) => {
 })
 
 router.get('/users/me', auth, async (req, res) => {
-    res.send(req.user)
+    const user = req.user
+    var tasks = await Task.findTasks(user._id)
+    res.status(200).render('dashboard',{name:user.name,tasks:tasks})
 })
 
 router.patch('/users/me', auth, async (req, res) => {
     const updates = Object.keys(req.body)
     const allowedUpdates = ['name', 'email', 'password', 'age']
     const isValidOperation = updates.every((update) => allowedUpdates.includes(update))
-
     if (!isValidOperation) {
         return res.status(400).send({ error: 'Invalid updates!' })
     }

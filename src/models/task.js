@@ -20,5 +20,10 @@ const taskSchema = new mongoose.Schema( {
     timestamps:true
 })
 
+taskSchema.statics.findTasks = async function(id){
+    const tasks = await Task.find({owner:id})
+       return tasks
+}
+
 const Task = mongoose.model('Task',taskSchema)
 module.exports = Task

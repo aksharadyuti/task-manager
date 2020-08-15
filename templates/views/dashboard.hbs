@@ -7,5 +7,19 @@
     <body>
         {{>header}}
         <h2>Hello {{name}}</h2>
-    </body>
+         <form  id="add-task" method="POST" action="/tasks">
+        <input type="text" name="description" placeholder="description">
+        <input type="submit" name="submit">
+        </form>
+        <div id="todo">
+        <h3>To-do</h3>
+        {{#tasks}}
+        <br>
+        <span>{{description}}</span>
+        <input type="checkbox">
+
+        {{/tasks}}
+</div>       
+       
+   </body>
 </html>
