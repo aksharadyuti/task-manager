@@ -7,7 +7,7 @@
         {{>header}}
         <div id="register-form">
             <h2>Register</h2>
-            <form method="POST" action="/users">
+            <form method="POST" action="/register">
             <label>Name</label><br>
             <input type="text" placeholder="name" name="name" required><br>
             <label>Email</label><br>
@@ -17,6 +17,10 @@
             <label>Password</label><br>
             <input type="password" placeholder="password" name="password" required><br>
             <button>Submit</button>
+            </form>
+            <form method="GET" action="/">
+            <span>Already registerd?</span>
+            <button class="link-button">Log In</button>
             </form>
         </div>
     </body>

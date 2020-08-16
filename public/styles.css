@@ -16,6 +16,7 @@ h2{
 
 form{
     text-align: center;
+    padding-top: 20px;
 }
 
 input{
@@ -35,11 +36,23 @@ button{
     border: thin ;
 }
 
-#register-form{
-    padding-top: 20px;
-    
+.link-button{
+    margin-top: 15px;
+    padding: 14px;
+    background-color:  rgb(24, 3, 37);
+    font-size: medium;
+    font-family: 'Lucida Sans';
+    color: rgb(180, 9, 231);
+    border: thin ;
 }
 
 #todo{
     padding: 20px;
+}
+
+.error-msg{
+    font-family: 'Lucida Sans';
+    text-align: center;
+    font-size: small;
+    color: tomato;
 }

@@ -5,15 +5,25 @@
     </head>
     <body>
         {{>header}}
-        <div id="register-form">
+        <div id="login-form">
             <h2>Log In</h2>
-            <form method="POST" action="/users/login">
+            <form method="POST" action="/">
             <label>Email</label><br>
             <input type="email" placeholder="email" name="email" required><br>
             <label>Password</label><br>
             <input type="password" placeholder="password" name="password" required><br>
-            <button>Submit</button>
+            <button>Log In</button>
             </form>
+             <div class="error-msg">
+                {{#if error}}
+                <p>{{error}}</p>
+                {{/if}}
+            </div>
+            <form method="GET" action="/register">
+            <span>Not registerd?</span>
+            <button class="link-button">Register</button>
+            </form>
+           
         </div>
     </body>
 </html>

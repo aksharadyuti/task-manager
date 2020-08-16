@@ -19,10 +19,13 @@
     </head>
     <body>
         {{>header}}
+        <form id="log-out" method="POST" action="/users/logoutAll" style="text-align: right;">
+        <button class="link-button">Log out</button>
+        </form>
         <h2>Hello {{name}}</h2>
          <form  id="add-task" method="POST" action="/tasks">
         <input type="text" name="description" placeholder="description">
-        <input type="submit" name="submit">
+        <button>Add task</button>
         </form>
         <div id="todo">
         <h3>To-do</h3>

@@ -8,15 +8,15 @@ const Task = require('../models/task')
 const router = new express.Router()
 router.use(express.urlencoded({extended:true}))
 
-router.get('/',async(req,res)=>{
+router.get('/register',async(req,res)=>{
     res.status(200).render('register')
 })
 
-router.get('/users/login', async(req,res)=>{
+router.get('/', async(req,res)=>{
     res.status(200).render('login')
 })
 
-router.post('/users', async (req, res) => {
+router.post('/register', async (req, res) => {
 
     try {
         const user = new User(req.body)
@@ -28,13 +28,12 @@ router.post('/users', async (req, res) => {
         res.status(201).redirect("/users/me")
     } catch (e) {
         console.log(e)
-        res.status(400).send(e)
+        res.status(400).redirect("/")
     }
 })
 
-router.post('/users/login', async (req, res) => {
+router.post('/', async (req, res) => {
     try {
-        console.log("EHY")
         const user = await User.findByCredentials(req.body.email, req.body.password)
         const token = await user.generateAuthToken()
         var cookies = new Cookies(req,res)
@@ -43,7 +42,8 @@ router.post('/users/login', async (req, res) => {
         res.status(200).redirect('/users/me')
     } catch (e) {
         console.log(e);
-        res.status(400).send(e)
+        const error = "Unable to login"
+        res.status(400).render('login',{error})
     }
 })
 
@@ -56,7 +56,7 @@ router.post('/users/logout', auth, async (req, res) => {
 
         res.send()
     } catch (e) {
-        res.status(500).send()
+        res.status(500).redirect('/')
     }
 })
 
@@ -64,7 +64,7 @@ router.post('/users/logoutAll', auth, async (req, res) => {
     try {
         req.user.tokens = []
         await req.user.save()
-        res.send()
+        res.status(200).redirect('/')
     } catch (e) {
         res.status(500).send()
     }
