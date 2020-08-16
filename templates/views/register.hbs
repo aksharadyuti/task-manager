@@ -5,17 +5,23 @@
     </head>
     <body>
         {{>header}}
+       
         <div id="register-form">
             <h2>Register</h2>
-            <form method="POST" action="/register">
+             <div class="error-msg">
+                {{#if error}}
+                <p>{{error}}</p>
+                {{/if}}
+            </div>
+            <form method="POST" action="/register" autocomplete="off">
             <label>Name</label><br>
-            <input type="text" placeholder="name" name="name" required><br>
+            <input type="text" placeholder="name" name="name" value="" required><br>
             <label>Email</label><br>
-            <input type="email" placeholder="email" name="email" required><br>
+            <input type="email" placeholder="email" name="email" autocomplete="off" required><br>
             <label>Age</label><br>
-            <input type="number" placeholder="age" name="age"><br>
+            <input type="number" placeholder="age" name="age" value=""><br>
             <label>Password</label><br>
-            <input type="password" placeholder="password" name="password" required><br>
+            <input type="password" placeholder="password" name="password" value="" required><br>
             <button>Submit</button>
             </form>
             <form method="GET" action="/">

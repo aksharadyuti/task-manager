@@ -2,6 +2,11 @@
 <html>
     <head>
         <link rel="stylesheet" href="../../public/styles.css">
+        <script>
+            window.addEventListener("hashchange", function(e) {
+  window.location.replace('https://localhost:3000')
+})
+        </script>
 
         <script>
            async function completeTask(id){
@@ -23,10 +28,15 @@
         <button class="link-button">Log out</button>
         </form>
         <h2>Hello {{name}}</h2>
-         <form  id="add-task" method="POST" action="/tasks">
+        <form  id="add-task" method="POST" action="/tasks" autocomplete="off">
         <input type="text" name="description" placeholder="description">
         <button>Add task</button>
         </form>
+         <div class="error-msg">
+                {{#if error}}
+                <p>{{error}}</p>
+                {{/if}}
+            </div>
         <div id="todo">
         <h3>To-do</h3>
         {{#tasks}}

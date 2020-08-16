@@ -7,6 +7,10 @@ const Task = require('../models/task')
 
 const router = new express.Router()
 router.use(express.urlencoded({extended:true}))
+router.use(function(req, res, next) {
+    res.set('Cache-Control', 'no-cache, private, no-store, must-revalidate, max-stale=0, post-check=0, pre-check=0');
+    next();
+  });
 
 router.get('/register',async(req,res)=>{
     res.status(200).render('register')
@@ -27,8 +31,15 @@ router.post('/register', async (req, res) => {
         cookies.set('token',token)
         res.status(201).redirect("/users/me")
     } catch (e) {
-        console.log(e)
-        res.status(400).redirect("/")
+        if(e.email==null && e.password == null)
+        var error = "Already registerd"
+        else if(e.errors.password)
+        var error = "Password must contain atleast 5 characters"
+        else if(e.errors.email)
+        var error = "Email already exists"
+        else if(e.errors.age)
+        var error = "Please enter valid age"
+        res.status(400).render("register",{error})
     }
 })
 
@@ -42,7 +53,7 @@ router.post('/', async (req, res) => {
         res.status(200).redirect('/users/me')
     } catch (e) {
         console.log(e);
-        const error = "Unable to login"
+        const error = "Incorrect email or password"
         res.status(400).render('login',{error})
     }
 })
@@ -72,8 +83,10 @@ router.post('/users/logoutAll', auth, async (req, res) => {
 
 router.get('/users/me', auth, async (req, res) => {
     const user = req.user
+    const error = req.query.error
     var tasks = await Task.findTasks(user._id)
-    res.status(200).render('dashboard',{name:user.name,tasks:tasks})
+
+    res.status(200).render('dashboard',{name:user.name,tasks:tasks,error:error})
 })
 
 router.patch('/users/me', auth, async (req, res) => {

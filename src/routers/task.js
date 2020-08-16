@@ -13,7 +13,8 @@ router.post('/tasks', auth, async (req, res) => {
         await task.save()
         res.status(201).redirect('/users/me')
     } catch (e) {
-        res.status(400).send(e)
+        var error = "Enter a task"
+        res.status(400).redirect('/users/me?error='+error)
     }
 })
 
