@@ -100,12 +100,13 @@ router.delete('/tasks/:id', auth, async (req, res) => {
         const task = await Task.findOneAndDelete({_id:req.params.id, owner: req.user._id})
 
         if (!task) {
-            res.status(404).send()
+            res.status(404).send('ERROR')
         }
 
-        res.status(200).redirect('/users/me')
+        res.status(200).send('OK')
     } catch (e) {
-        res.status(500).send()
+        console.log(e)
+        res.status(500).send('ERROR')
     }
 })
 

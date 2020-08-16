@@ -1,7 +1,7 @@
 const express = require('express')
 const User = require('../models/user')
 const auth = require('../middleware/auth')
-const { cookie } = require('express-validator')
+//const { cookie } = require('express-validator')
 var Cookies = require('cookies')
 const Task = require('../models/task')
 
@@ -23,7 +23,7 @@ router.post('/users', async (req, res) => {
 
         await user.save()
         const token = await user.generateAuthToken()
-        var cookies = new cookies(req,res)
+        var cookies = new Cookies(req,res)
         cookies.set('token',token)
         res.status(201).redirect("/users/me")
     } catch (e) {
@@ -34,11 +34,12 @@ router.post('/users', async (req, res) => {
 
 router.post('/users/login', async (req, res) => {
     try {
+        console.log("EHY")
         const user = await User.findByCredentials(req.body.email, req.body.password)
         const token = await user.generateAuthToken()
         var cookies = new Cookies(req,res)
         cookies.set('token', token)
-        const tasks = await Tasks.find({owner:user._id})
+        const tasks = await Task.find({owner:user._id})
         res.status(200).redirect('/users/me')
     } catch (e) {
         console.log(e);

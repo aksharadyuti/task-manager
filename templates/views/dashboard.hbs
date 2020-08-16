@@ -2,8 +2,20 @@
 <html>
     <head>
         <link rel="stylesheet" href="../../public/styles.css">
-                <script src="../../public/tasks.js"></script>
 
+        <script>
+           async function completeTask(id){
+               const str = 'http://localhost:3000/tasks/'+id
+                //window.location.replace(str)
+               //console.log(str)
+                await fetch(str,{
+                method : 'DELETE',
+                }).then(res => res.text()).then((data)=>{
+                    console.log(data)
+                    window.location.replace('http://localhost:3000/users/me')
+                    }).catch(e=>console.log(e))
+            }
+        </script>
     </head>
     <body>
         {{>header}}
