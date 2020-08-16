@@ -32,7 +32,7 @@ router.post('/register', async (req, res) => {
         res.status(201).redirect("/users/me")
     } catch (e) {
         if(e.email==null && e.password == null)
-        var error = "Already registerd"
+        var error = "Invalid details"
         else if(e.errors.password)
         var error = "Password must contain atleast 5 characters"
         else if(e.errors.email)
