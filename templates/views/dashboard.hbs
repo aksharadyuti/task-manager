@@ -13,10 +13,11 @@
 
         <script>
            async function completeTask(id){
+               const str = '/tasks/'+id
              //  const str = 'http://localhost:3000/tasks/'+id
                 //window.location.replace(str)
                //console.log(str)
-                await fetch('/tasks'+id,{
+                await fetch(str,{
                 method : 'DELETE',
                 }).then(res => res.text()).then((data)=>{
                     console.log(data)
