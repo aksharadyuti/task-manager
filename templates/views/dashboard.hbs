@@ -5,20 +5,24 @@
         <link rel="stylesheet" href="../../public/styles.css">
         <script>
             window.addEventListener("hashchange", function(e) {
-  window.location.replace('https://localhost:3000')
+  //window.location.replace('https://localhost:3000')
+    window.location.replace('/')
+
 })
         </script>
 
         <script>
            async function completeTask(id){
-               const str = 'http://localhost:3000/tasks/'+id
+             //  const str = 'http://localhost:3000/tasks/'+id
                 //window.location.replace(str)
                //console.log(str)
-                await fetch(str,{
+                await fetch('/tasks'+id,{
                 method : 'DELETE',
                 }).then(res => res.text()).then((data)=>{
                     console.log(data)
-                    window.location.replace('http://localhost:3000/users/me')
+                   // window.location.replace('http://localhost:3000/users/me')
+                    window.location.replace('/users/me')
+
                     }).catch(e=>console.log(e))
             }
         </script>
