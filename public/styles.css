@@ -60,3 +60,9 @@ button{
     font-size: small;
     color: tomato;
 }
+
+#quote-div{
+    text-align: center;
+    color: rgb(205, 206, 255);
+    font-style: italic;
+}

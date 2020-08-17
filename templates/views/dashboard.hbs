@@ -4,6 +4,17 @@
     <head>
         <link rel="stylesheet" href="../../public/styles.css">
         <script>
+            fetch(
+                'https://quotes.rest/qod',{
+                    method:'GET'
+                }).then((res)=>{
+                    res.json().then((data)=>{
+                        console.log(data.contents)
+                        document.getElementById('quote').innerHTML = data.contents.quotes[0].quote 
+                        document.getElementById('author').innerHTML = data.contents.quotes[0].author
+                    })
+                }).catch(error=>console.log(error))
+
             window.addEventListener("hashchange", function(e) {
   //window.location.replace('https://localhost:3000')
     window.location.replace('/')
@@ -34,6 +45,10 @@
         <button class="link-button">Log out</button>
         </form>
         <h2>Hello {{name}}</h2>
+        <div id="quote-div">
+            <p id="quote"></p>
+            <p id="author"></p>
+        </div>
         <form  id="add-task" method="POST" action="/tasks" autocomplete="off">
         <input type="text" name="description" placeholder="description">
         <button>Add task</button>
