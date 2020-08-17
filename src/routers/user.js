@@ -24,15 +24,14 @@ router.post('/register', async (req, res) => {
 
     try {
         const user = new User(req.body)
-
         await user.save()
         const token = await user.generateAuthToken()
         var cookies = new Cookies(req,res)
         cookies.set('token',token)
         res.status(201).redirect("/users/me")
     } catch (e) {
-        if(e.email==null && e.password == null)
-        var error = "Invalid details"
+        if(e.code ==11000)
+        var error = "Already registerd"
         else if(e.errors.password)
         var error = "Password must contain atleast 5 characters"
         else if(e.errors.email)
