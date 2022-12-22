@@ -12,7 +12,7 @@
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "express": "^4.17.1",
-    "jsonwebtoken": "^8.4.0",
+    "jsonwebtoken": "^9.0.0",
     "kind-of": "^6.0.3",
     "lodash": "^4.17.19",
     "minimatch": "^3.0.4",
